@@ -31,7 +31,7 @@ foodPosi=[random.randrange(1,72)*10,random.randrange(1,46)*10]
 foodSpawn=True
 
 #Direction 
-direction='right'
+direction='RIGHT'
 changeto=direction
 
 #Game over function
@@ -42,6 +42,39 @@ def gameOver():
     GOrect.midtop=(360, 20)
     playSurface.blit(GOsurface,GOrect)
     pygame.display.flip()
+    time.sleep(5)
+    pygame.quit()#for game
+    sys.exit()#for console
+
+#main logic for Events of the game
+
+while True:      #or can use "while 1:"
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()#for game
+            sys.exit()#for console
+        elif event.type==pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):
+                changeto='RIGHT'
+            if event.key == pygame.K_LEFT or event.key == ord('a'):
+                changeto='LEFT'
+            if event.key == pygame.K_UP or event.key == ord('w'):
+                changeto='UP'
+            if event.key == pygame.K_DOWN or event.key == ord('s'):
+                changeto='DOWN'
+            if event.key == pygame.K_ESCAPE:
+                pygame.event.post(pygame.event.Event(QUIT))
+                
+                
+
+
+
+
+
+
+
+
+
+
     
-gameOver()
-time.sleep(5)
+
