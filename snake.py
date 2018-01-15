@@ -65,7 +65,36 @@ while True:      #or can use "while 1:"
             if event.key == pygame.K_ESCAPE:
                 pygame.event.post(pygame.event.Event(QUIT))
                 
-                
+    #validation of direction
+    if changeto == 'RIGHT' and not direction == 'LEFT':
+        direction='RIGHT'
+    if changeto == 'LEFT' and not direction == 'RIGHT':
+        direction='RIGHT'
+    if changeto == 'UP' and not direction == 'DOWN':
+        direction='UP'
+    if changeto == 'DOWN' and not direction == 'UP':
+        direction='DOWN'
+    
+    if direction == 'RIGHT':
+        snakePosi[0]+=10
+    if direction == 'LEFT':
+        snakePosi[0]-=10
+    if direction == 'UP':
+        snakePosi[1]-=10
+    if direction == 'DOWN':
+        snakePosi[1]+=10
+    
+    
+    #SNAKE BOFY MECHANISM
+    snakeBody.insert(0, list(snakePosi))
+    if snakePosi[0]==foodPosi and snakePosi[1]==foodPosi[1]:
+        foodSpawn=False
+    else:
+        snakeBody.pop()
+    if foodSpawn == False:
+        foodPosi=[random.randrange(1,72)*10,random.randrange(1,46)*10]
+        #foodSpawn=True
+        
 
 
 
