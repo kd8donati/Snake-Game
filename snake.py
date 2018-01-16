@@ -27,7 +27,7 @@ snakePosi=[100,200]
 snakeBody=[[100,50],[90,50],[90,50]]
 
 #Food
-foodPosi=[random.randrange(1,72)*10,random.randrange(1,46)*10]
+foodPosi=[random.randrange(1,72)*10,random.randrange(1,48)*10]
 foodSpawn=True
 
 #Direction 
@@ -94,13 +94,28 @@ while True:      #or can use "while 1:"
     if foodSpawn == False:
         foodPosi=[random.randrange(1,72)*10,random.randrange(1,46)*10]
         #foodSpawn=True
-    playSurface.fill(white)#background color 
+        
+    #background color
+    playSurface.fill(white) 
+
+    #Drawing Snake 
     for posi in snakeBody:
         
         pygame.draw.rect(playSurface,green,pygame.Rect(posi[0],posi[1],10,10))
-
+    pygame.draw.rect(playSurface,brown,pygame.Rect(foodPosi[0],foodPosi[1],10,10))
+    
+    #Out of Bounds
+    if snakePosi[0]>710 or snakePosi[0]<0:
+        gameOver()
+    if snakePosi[1]>470 or snakePosi[1]<0:
+        gameOver()
+        
+    for block in snakeBody[1:]:
+        if snakePosi[0] == block[0] and snakePosi[1]==block[1]:
+            gameOver()
+    
     pygame.display.flip()
-    fpsController.tick(30)
+    fpsController.tick(22)
 
 
 
