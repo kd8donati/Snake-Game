@@ -1,4 +1,5 @@
-import pygame, sys, random, time    #Libraries imported
+#Libraries imported
+import pygame, sys, random, time    
 
 check_errors=pygame.init()  #(6,0)
 if check_errors[1]>0:
@@ -41,15 +42,15 @@ changeto=direction
 
 #Score function
 def Score(counter=1):
-    scoreFont = pygame.font.SysFont('arial',70)
+    scoreFont = pygame.font.SysFont('arial',30)
     Scoresurface = scoreFont.render('Score {0}'.format(score),True, black)
     Scorerect= Scoresurface.get_rect()
-    if counter ==1 :
-        Scorerect.midtop=(100,10)
+    if counter == 1 :
+        Scorerect.midtop=(50,10)
     else:
         Scorerect.midtop=(360,120)
     playSurface.blit(Scoresurface,Scorerect)
-    pygame.display.flip()
+    #pygame.display.flip()
 
 
 #Game over function
@@ -60,9 +61,9 @@ def gameOver():
     GOrect= GOsurface.get_rect()
     GOrect.midtop=(360, 20)
     playSurface.blit(GOsurface,GOrect)
+    Score(0)
     pygame.display.flip()
     time.sleep(5)
-    Score(0)
     pygame.quit()#for game
     sys.exit()#for console
 
@@ -84,7 +85,7 @@ while True:      #or can use "while 1:"
             if event.key == pygame.K_DOWN or event.key == ord('s'):
                 changeto='DOWN'
             if event.key == pygame.K_ESCAPE:
-                pygame.event.post(pygame.event.Event(QUIT))
+                pygame.event.post(pygame.event.Event(pygame.QUIT))
                 
     #validation of direction
     if changeto == 'RIGHT' and not direction == 'LEFT':
@@ -95,6 +96,8 @@ while True:      #or can use "while 1:"
         direction='UP'
     if changeto == 'DOWN' and not direction == 'UP':
         direction='DOWN'
+        
+    #Snake Movement Direction
     
     if direction == 'RIGHT':
         snakePosi[0]+=10
@@ -108,14 +111,14 @@ while True:      #or can use "while 1:"
     
     #SNAKE BOFY MECHANISM
     snakeBody.insert(0, list(snakePosi))
-    if snakePosi[0]==foodPosi and snakePosi[1]==foodPosi[1]:
+    if snakePosi[0]==foodPosi[0] and snakePosi[1]==foodPosi[1]:
         score+=1
         foodSpawn=False
     else:
         snakeBody.pop()
     if foodSpawn == False:
         foodPosi=[random.randrange(1,72)*10,random.randrange(1,46)*10]
-        #foodSpawn=True
+    foodSpawn=True
         
     #background color
     playSurface.fill(white) 
@@ -137,9 +140,9 @@ while True:      #or can use "while 1:"
         if snakePosi[0] == block[0] and snakePosi[1]==block[1]:
             gameOver()
     
-    pygame.display.flip()
     Score()
-    fpsController.tick(22)
+    pygame.display.flip()
+    fpsController.tick(25)
     
     
     #Score
