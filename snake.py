@@ -69,7 +69,7 @@ while True:      #or can use "while 1:"
     if changeto == 'RIGHT' and not direction == 'LEFT':
         direction='RIGHT'
     if changeto == 'LEFT' and not direction == 'RIGHT':
-        direction='RIGHT'
+        direction='LEFT'
     if changeto == 'UP' and not direction == 'DOWN':
         direction='UP'
     if changeto == 'DOWN' and not direction == 'UP':
@@ -94,9 +94,13 @@ while True:      #or can use "while 1:"
     if foodSpawn == False:
         foodPosi=[random.randrange(1,72)*10,random.randrange(1,46)*10]
         #foodSpawn=True
+    playSurface.fill(white)#background color 
+    for posi in snakeBody:
         
+        pygame.draw.rect(playSurface,green,pygame.Rect(posi[0],posi[1],10,10))
 
-
+    pygame.display.flip()
+    fpsController.tick(30)
 
 
 
