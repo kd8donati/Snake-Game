@@ -30,11 +30,30 @@ snakeBody=[[100,50],[90,50],[90,50]]
 foodPosi=[random.randrange(1,72)*10,random.randrange(1,48)*10]
 foodSpawn=True
 
+#score variable
+score = 0
+
 #Direction 
+
 direction='RIGHT'
 changeto=direction
 
+
+#Score function
+def Score(counter=1):
+    scoreFont = pygame.font.SysFont('arial',70)
+    Scoresurface = scoreFont.render('Score {0}'.format(score),True, black)
+    Scorerect= Scoresurface.get_rect()
+    if counter ==1 :
+        Scorerect.midtop=(100,10)
+    else:
+        Scorerect.midtop=(360,120)
+    playSurface.blit(Scoresurface,Scorerect)
+    pygame.display.flip()
+
+
 #Game over function
+
 def gameOver():
     myFont = pygame.font.SysFont('arial',70)
     GOsurface = myFont.render('Game Over',True, red)
@@ -43,9 +62,11 @@ def gameOver():
     playSurface.blit(GOsurface,GOrect)
     pygame.display.flip()
     time.sleep(5)
+    Score(0)
     pygame.quit()#for game
     sys.exit()#for console
 
+                                    
 #main logic for Events of the game
 
 while True:      #or can use "while 1:"
@@ -88,6 +109,7 @@ while True:      #or can use "while 1:"
     #SNAKE BOFY MECHANISM
     snakeBody.insert(0, list(snakePosi))
     if snakePosi[0]==foodPosi and snakePosi[1]==foodPosi[1]:
+        score+=1
         foodSpawn=False
     else:
         snakeBody.pop()
@@ -102,6 +124,7 @@ while True:      #or can use "while 1:"
     for posi in snakeBody:
         
         pygame.draw.rect(playSurface,green,pygame.Rect(posi[0],posi[1],10,10))
+    
     pygame.draw.rect(playSurface,brown,pygame.Rect(foodPosi[0],foodPosi[1],10,10))
     
     #Out of Bounds
@@ -115,7 +138,11 @@ while True:      #or can use "while 1:"
             gameOver()
     
     pygame.display.flip()
+    Score()
     fpsController.tick(22)
+    
+    
+    #Score
 
 
 
